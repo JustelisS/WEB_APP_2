@@ -1,0 +1,65 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" [href]="sanitizer.bypassSecurityTrustResourceUrl(public/styles.css)">
+  </head>
+  <body>
+
+    <div id="app">
+      <nav>
+        <a v-if="!isLogedIn" @click="showLogModal = true"> LOGIN </a>
+        <a v-if="!isLogedIn" @click="showRegModal = true"> SIGN UP </a>
+        <a v-if="isLogedIn && usertype == 'creator'" @click="showAddCourseModal = true">ADD COURSE</a>
+        <a v-if="isLogedIn && usertype == 'creator'" @click="showMyCoursesModal = true">MY COURSES</a>
+        <a v-if="isLogedIn" @click="logout"> LOG OUT </a>
+        <a v-if="isLogedIn">Loged in as: {{logedInUser}}</a>
+      </nav>
+
+      <log-in v-if="showLogModal"
+              @close="showLogModal = false"
+              v-bind:users="users">
+
+        <h1 slot="header">LOG IN</h1>
+      </log-in>
+
+      <sign-up v-if="showRegModal"
+               @close="showRegModal = false"
+               v-bind:users="users">
+
+        <h1 slot="header">SIGN UP</h1>
+      </sign-up>
+
+      <add-course v-if="showAddCourseModal"
+                  @close="showAddCourseModal = false"
+                  v-bind:loged-in-user="logedInUser"
+                  v-bind:courses="courses">
+
+        <h1 slot="header">ADD COURSE</h1>
+      </add-course>
+
+      <my-courses v-if="showMyCoursesModal"
+                  @close="showMyCoursesModal = false"
+                  v-bind:loged-in-user="logedInUser"
+                  v-bind:courses="courses">
+
+        <h1 slot="header">MY COURSES</h1>
+      </my-courses>
+
+      </br>
+
+      <course-list v-bind:topics="topics"
+                   v-bind:prices="prices"
+                   v-bind:courses="courses">
+      </course-list>
+
+
+    </div>
+
+    <script src="./public/script.js">
+
+    </script>
+
+  </body>
+</html>
