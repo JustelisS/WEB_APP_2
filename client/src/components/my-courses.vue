@@ -46,8 +46,8 @@ export default {
         .then((response) => {
           return response.json();
         })
-        .then((myJson) => {
-          this.mycourses = myJson;
+        .then((data) => {
+          this.mycourses = data;
         });
     },
 

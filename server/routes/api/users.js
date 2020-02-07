@@ -3,20 +3,13 @@ const mongodb = require('mongodb');
 
 const router2 = express.Router();
 
-
+//Destroys login session
 router2.get('/logout', (req, res) => {
   req.session.destroy();
   return res.status(200).send();
 });
 
-
-//Get users
-router2.get('/', async (req, res) => {
-  const users = await loadCollection();
-  res.send(await users.find({}).toArray());
-});
-
-//does email exist
+//Checks if with email specified with :email parameter exists
 router2.get('/:email', async (req, res) => {
   const users = await loadCollection();
   users.findOne({ email: req.params.email }, function(err, user) {
@@ -30,14 +23,15 @@ router2.get('/:email', async (req, res) => {
   })
 });
 
+//Checks if there is a live session and returns user's session email
 router2.post('/checklogin', (req, res) => {
   if(!req.session.user) {
-    console.log(req.session.user);
     return res.status(404).send();
   }
   return res.status(200).send(req.session.user.email);
 })
-//llohn
+
+//Creates a session upon login
 router2.post('/login', async (req, res) => {
   const users = await loadCollection();
   users.findOne({ email: req.body.email, password: req.body.password}, function(err, user) {
@@ -55,8 +49,7 @@ router2.post('/login', async (req, res) => {
   })
 });
 
-
-//Add users
+//Registers a new user to the database
 router2.post('/newUser', async (req, res) => {
   const users = await loadCollection();
   await users.insertOne({
@@ -71,7 +64,7 @@ router2.post('/newUser', async (req, res) => {
    return res.status(201).send();
 });
 
-
+//On call connection with the database is established
 async function loadCollection() {
   const client = await mongodb.MongoClient.connect(
     'mongodb://localhost:27017', { useNewUrlParser: true });

@@ -46,7 +46,7 @@ export default {
 
     logIn() {
       fetch('http://localhost:3200/api/users/login', {
-          method: 'POST', 
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -62,7 +62,9 @@ export default {
           this.$emit('update-login', resp);
           this.$emit('close');
       })
-
+      .catch((error) => {
+        console.log(error);
+      });
     }
   }
 }

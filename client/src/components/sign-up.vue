@@ -77,6 +77,7 @@ export default {
           this.$emit('close');
       }
     },
+
     doesExist() {
       fetch(`http://localhost:3200/api/users/${this.email}`)
         .then((response) => {

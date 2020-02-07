@@ -3,27 +3,27 @@ const mongodb = require('mongodb');
 
 const router = express.Router();
 
-
 //Get courses
 router.get('/', async (req, res) => {
   const courses = await loadCollection();
   res.send(await courses.find({}).toArray());
 });
 
-//get mycourses
+//Gets all courses that were made by a selected author (:author)
 router.get('/:author', async (req, res) => {
   const courses = await loadCollection();
   res.send(await courses.find({ author: req.params.author }).toArray());
 });
 
-//delete course
+//Deletes a course by it's id (:id)
 router.delete('/:id', async (req, res) => {
   const courses = await loadCollection();
   res.status(200).send(await courses.deleteOne({_id: new mongodb.ObjectID(req.params.id)}));
-  //res.status(200).send();
-})
+});
 
-
+//Adds a rating to specified course, if a user is leaving a rating for the first time
+//the list of rated users will be appended. If a user had rated before, the rating will be
+//updated
 router.put('/:id-:email-:rating', async (req, res) => {
   const courses = await loadCollection();
   await courses.findOneAndUpdate(
@@ -50,7 +50,7 @@ router.put('/:id-:email-:rating', async (req, res) => {
   );
 });
 
-//Add courses
+//Add course
 router.post('/addcourse', async (req, res) => {
   const courses = await loadCollection();
   await courses.insertOne({
@@ -73,7 +73,7 @@ router.post('/addcourse', async (req, res) => {
   res.status(201).send();
 })
 
-
+//On call connection with the database is established
 async function loadCollection() {
   const client = await mongodb.MongoClient.connect(
     'mongodb://localhost:27017', { useNewUrlParser: true });
