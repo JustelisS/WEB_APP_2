@@ -12,10 +12,6 @@
           <option v-for="(topic, index) in topics"
                   v-bind:key="index">{{topic}}</option>
         </select>
-        <!--<select v-model="selectedPrice">
-          <option></option>
-          <option v-for="price in prices">{{price}}</option>
-        </select>-->
       </div>
       <div>
         <label>Sort</label>
