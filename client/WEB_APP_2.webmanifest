@@ -1,0 +1,16 @@
+{
+  "name": "After-School Classes",
+  "short-name": "AFC",
+  "description": "This is a description",
+  "icons": [
+    {
+      "src": "src/assets/logo.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#ff0000",
+  "background_color": "#c61197"
+}

@@ -36,7 +36,7 @@
               <input id="length" v-model.number='length' required>
               <label for="description">Description</label>
               <input type="text" id="description" v-model='description' required>
-              <button type="button" v-on:click="submitToDB">ADD COURSE</button>
+              <button type="button" v-on:click="addCourse">ADD COURSE</button>
             </form>
             </slot>
           </div>
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-//import RoutingService from '../RoutingService'
 
 export default {
   name: 'AddCourse',
@@ -94,22 +93,10 @@ export default {
     }
   },
   methods: {
-    async submitToDB() {
+    async addCourse() {
       if(this.topic !== '' && this.price !== null && this.county !== '' &&
          this.postcode !== '' && this.day !== '' && this.time !== '' &&
          this.length !== null && this.description !== '') {
-           /*await RoutingService.postData('http://localhost:3200/api/courses/reg', {
-             topic: this.topic,
-             price: this.price,
-             county: this.county,
-             postcode: this.postcode,
-             day: this.day,
-             time: this.time,
-             length: this.length,
-             description: this.description,
-             author: this.logedInUser
-           });*/
-
            await fetch('http://localhost:3200/api/courses/addcourse', {
              method: 'POST',
              headers: {
@@ -128,58 +115,16 @@ export default {
              })
            })
            .then((response) => response.json())
-           .then((response) => {
-             console.log(response);
-           })
+           .then(() => {})
            .catch((error) => {
              console.log(error);
            });
            this.$emit('update-courses');
            this.$emit('close');
          } else {
-           console.error("Please fill in the fields");
+           alert("Please fill in the fields");
          }
     },
-
-    addCourse: function() {
-      if(this.topic !== '' && this.price !== null && this.county !== '' &&
-         this.postcode !== '' && this.day !== '' && this.time !== '' &&
-         this.length !== null && this.description !== '') {
-           this.setId();
-           this.courses.push({
-             id: this.id,
-             topic: this.topic,
-             price: this.price,
-             county: this.county,
-             postcode: this.postcode,
-             day: this.day,
-             time: this.time,
-             length: this.length,
-             description: this.description,
-             author: this.status.email
-           });
-           localStorage.setItem("courses", JSON.stringify(this.courses));
-           //this.submitToDB();
-         }
-    },
-    setId: function() {
-      var courseId = 0;
-        if(this.courses.length !== 0 && this.courses.length !== 1) {
-          for(let course = 1; course < this.courses.length; course++) {
-            if(this.courses[course].id >= this.courses[course - 1].id) {
-              courseId = this.courses[course].id;
-            } else {
-              courseId = this.courses[course - 1].id;
-            }
-          }
-          this.id = courseId + 1;
-        } else if(this.courses.length === 1){
-          courseId = this.courses[0].id;
-          this.id = courseId + 1;
-        } else {
-          this.id = courseId;
-        }
-    }
   }
 
 }

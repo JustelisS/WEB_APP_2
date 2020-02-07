@@ -43,19 +43,10 @@ export default {
     }
   },
   methods: {
-    /*logIn: function(){
-      for(let user = 0; user < this.users.length; user++) {
-        if(this.users[user].username == this.username &&
-           this.users[user].password == this.password) {
-             this.users[user].isSignedIn = true;
-             localStorage.setItem("users", JSON.stringify(this.users));
-             break;
-        }
-      }
-    }*/
+
     logIn() {
       fetch('http://localhost:3200/api/users/login', {
-          method: 'POST', // or 'PUT'
+          method: 'POST', 
           headers: {
             'Content-Type': 'application/json',
           },

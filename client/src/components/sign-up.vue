@@ -17,7 +17,7 @@
               <input v-model='email' required>
               <label>Password</label>
               <input type="password" v-model='password' required>
-              <button v-on:click='addUser'>SIGN UP</button>
+              <button type="button" v-on:click='addUser'>SIGN UP</button>
             </form>
             </slot>
           </div>
@@ -49,14 +49,14 @@ export default {
     addUser() {
       const exists = this.doesExist();
       if(this.email == '' || this.email == '' || this.email == '') {
-        //do nothing
+        alert("All fiels must be filled");
       } else if(this.invalidDetails()){
           alert("Username or Password Too Long");
       } else if(exists) {
           alert("User With This Name Already Exists");
       } else {
           fetch('http://localhost:3200/api/users/newUser', {
-              method: 'POST', // or 'PUT'
+              method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },

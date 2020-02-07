@@ -70,9 +70,7 @@ export default {
           }
         })
         .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
+        .then(() => {})
         .catch((error) => {
           console.log(error);
         });
@@ -92,8 +90,6 @@ export default {
         } else if(this.sortingType === 'descending') {
           return this.filteredList.slice().sort((a,b) => (a.topic > b.topic) ? 1 : ((b.topic > a.topic) ? -1 : 0)).reverse();
         } else {
-          //this.sortingType = 'ascending';
-          //return this.filteredList.slice().sort((a,b) => (a.topic > b.topic) ? 1 : ((b.topic > a.topic) ? -1 : 0));
           return this.getCourses();
         }
       } else if(this.sorting === 'Price') {
@@ -102,19 +98,14 @@ export default {
         } else if(this.sortingType === 'descending') {
           return this.filteredList.slice().sort((a,b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0)).reverse();
         } else {
-          //this.sortingType = 'ascending';
-          //return this.filteredList.slice().sort((a,b) => (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
           return this.getCourses();
         }
       } else {
-        //this.sorting = '';
-        //this.sortingType = '';
         return this.filteredList;
       }
     },
 
     searchList() {
-      //this.getCourses();
       return this.courses.filter(course => {
         return course.topic.toLowerCase().includes(this.search.toLowerCase());
       })

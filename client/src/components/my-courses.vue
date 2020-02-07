@@ -68,7 +68,6 @@ export default {
       });
       this.$emit('update-courses');
       this.myCourses();
-      //this.getCourses();
     }
   },
   created() {

@@ -1,10 +1,5 @@
 <template>
-  <!--<div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld />
-  </div>-->
   <div id="app">
-      <HelloWorld />
 
       <nav>
         <a v-if="!isLogedIn" @click="showLogModal = true"> LOGIN </a>
@@ -59,8 +54,7 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
-import HelloWorld from './components/HelloWorld.vue'
+
 import LogIn      from './components/log-in.vue'
 import SignUp     from './components/sign-up.vue'
 import MyCourses  from './components/my-courses.vue'
@@ -70,7 +64,6 @@ import AddCourse  from './components/add-course.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     LogIn,
     SignUp,
     MyCourses,
@@ -105,16 +98,6 @@ export default {
       ]
     }
   },
-  /*async created() {
-    fetch('http://localhost:3200/api/courses')
-      .then((response) => {
-        return response.json();
-      })
-      .then((myJson) => {
-        this.courses = myJson.toArray();
-        alert(this.courses);
-      });
-  },*/
   methods: {
     async getCourses() {
        await fetch('http://localhost:3200/api/courses')
@@ -127,7 +110,6 @@ export default {
     },
 
     updateLoginStatus(user) {
-      //const user = JSON.parse(userUnp);
       if(user) {
         this.isLogedIn = true;
         this.status = { email: user.email,
@@ -148,70 +130,11 @@ export default {
           this.showAddCourseModal = false;
           this.showMyCoursesModal = false;
         })
-
-
-    },
-    /*loginStatus: function(status, user) {
-
-    checkLogin() {
-      fetch('http://localhost:3200/api/users/checklogin', {
-          method: 'POST', // or 'PUT'
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode: 'cors'
-      })
-      .then((response) => response.json())
-      .then((response) => {
-          alert(response);
-      })
     }
 
-      for(let user = 0; user < this.users.length; user++) {
-        if(this.users[user].isSignedIn) {
-          this.isLogedIn = true;
-          this.logedInUser = this.users[user].username;
-          this.usertype = this.users[user].usertype;
-          break;
-        } else {
-          this.isLogedIn = false;
-          this.logedInUser = '';
-          this.usertype = '';
-        }
-      }
-    },
-    logout: function() {
-      for(let user = 0; user < this.users.length; user++) {
-        this.users[user].isSignedIn = false;
-        localStorage.setItem("users", JSON.stringify(this.users));
-      }
-      this.isLogedIn = false;
-      this.logedInUser = '';
-      this.usertype = '';
-    },*/
-
-    /*getCourses: function() {
-      fetch('http://localhost:3200/api/courses')
-        .then((response) => {
-          return response.json();
-        })
-        .then((myJson) => {
-          this.courses = myJson;
-        });
-    },
-  },*/
-    /*getCourses: function() {
-      if(localStorage.getItem("courses") == null) {
-        this.courses = [];
-      } else {
-        this.courses = JSON.parse(localStorage.getItem("courses"));
-      }
-    }*/
   },
-
   beforeMount(){
     this.getCourses();
-    //this.loginStatus();
   }
 }
 
