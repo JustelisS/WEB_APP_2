@@ -71,10 +71,10 @@ export default {
           .then(() => {
               alert("You Have Successfully Registered");
           })
-          //.catch((error) => {
-          //    alert("Error: " + error);
-          //});
-          //$emit('close');
+          .catch((error) => {
+              console.log(error);
+          });
+          this.$emit('close');
       }
     },
     doesExist() {
@@ -83,7 +83,6 @@ export default {
           return response.json();
         })
         .then((res) => {
-          //alert(res);
           return res;
         });
     },
