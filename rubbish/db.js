@@ -33,3 +33,23 @@ const getDB = () => {
 }
 
 module.exports = {getDB, connect, getPrimaryKey};
+
+app.put('/collections/:collectionName/update/:id-:user-:score', (req, res) => {
+    req.collection.findOneAndUpdate({
+        _id: mongoDB.ObjectID(req.params.id),
+        "rating.user": (req.params.user)
+    }, {$set: {"rating.$.score": (req.params.score)}})
+        .then(results => {
+            if (results.value === null) {
+                req.collection.findOneAndUpdate({
+                        _id: mongoDB.ObjectID(req.params.id),
+                    },
+                    {$push: {rating: {user: (req.params.user), score: (req.params.score)}}}
+                )
+                    .then(value => res.send(value))
+            } else {
+                res.send(results)
+            }
+        })
+        .catch(err => res.send(err));
+});

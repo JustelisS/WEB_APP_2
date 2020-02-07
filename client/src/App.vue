@@ -49,7 +49,10 @@
 
       <CourseList v-bind:topics="topics"
                    v-bind:prices="prices"
-                   v-bind:courses="courses">
+                   v-bind:courses="courses"
+                   v-bind:status="status"
+                   v-bind:is-loged-in="isLogedIn"
+                   @update-courses="getCourses">
       </CourseList>
 
     </div>

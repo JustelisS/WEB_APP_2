@@ -28,9 +28,20 @@
         <input type="radio" name="type" value="descending" v-model="sortingType"> Descending
       </div>
     </div>
-    <div v-for="(course, index) in filteredSortedList"
-         v-bind:key="index">
+    <div v-for="course in filteredSortedList"
+         v-bind:id="course._id"
+         v-bind:key="course._id">
       {{course}}
+      <select v-bind:id="course._id"
+              v-model="ratingField">
+        <option></option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+      <button @click="addRating(course._id)">Rate</button>
     </div>
   </div>
 </template>
@@ -38,14 +49,41 @@
 <script>
 export default {
   name: 'CourseList',
-  props: ['topics', 'prices', 'courses'],
+  props: ['topics', 'prices', 'courses', 'status'],
   data() {
     return {
       search: '',
       selectedTopic: '',
       selectedPrice: '',
       sorting: '',
-      sortingType: ''
+      sortingType: '',
+      ratingField: null
+    }
+  },
+
+  methods: {
+    async addRating(id) {
+      console.log(this.isLogedIn + " " + this.status.email + " " + id);
+      console.log(`http://localhost:3200/api/courses/${id}-${this.status.email}-${this.ratingField}`)
+      if(this.status.email !== '') {
+        await fetch(`http://localhost:3200/api/courses/${id}-${this.status.email}-${this.ratingField}`, {
+          method: 'PUT',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        this.$emit('update-courses');
+      } else {
+        alert("Log in to leave a rating");
+      }
     }
   },
 

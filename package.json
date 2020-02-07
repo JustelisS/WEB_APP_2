@@ -1,0 +1,29 @@
+{
+  "name": "web_app_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-csp-header": "^2.3.2",
+    "express-session": "^1.17.0",
+    "mongodb": "^3.5.2",
+    "node": "^13.6.0",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustelisS/WEB_APP_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustelisS/WEB_APP_2/issues"
+  },
+  "homepage": "https://github.com/JustelisS/WEB_APP_2#readme"
+}
